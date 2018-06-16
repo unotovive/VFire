@@ -1,11 +1,11 @@
 <template>
 <div class="todos">
-        <card 
-        v-for="todo of todos" 
-        v-bind:key="todo['.key']"
+    <div v-for="todo of todos" :key="todo['.key']" @click="update">
+        <card
         :todo="todo"
-        v-on:update="update"
+        :update="update"
         />
+    </div>
 </div>
 </template>
 <script>
@@ -29,6 +29,9 @@ export default {
         todos:todosRef
     },
     methods:{
+        test(){
+            console.log("aaaaaa")
+        },
         art(alert){
             console.log("indexで")
             this.$emit('alert',alert)
@@ -43,5 +46,8 @@ export default {
 <style>
   .notes{
     padding: 0 100px;
+  }
+  .zindex1{
+      z-index: 1;
   }
 </style>
