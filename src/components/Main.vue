@@ -6,37 +6,36 @@
   </div>
 </template>
 
-
 <script>
 import Index from './Index'
 import Create from './Create'
 import Update from './Update'
 export default {
   name: 'Main',
-  data(){
-    return{
+  data () {
+    return {
       showUpdate: false,
-      selectedTodo:null,
+      selectedTodo: null,
       alerts: []
     }
   },
-  components:{
+  components: {
     Index,
     Create,
-    Update,
+    Update
   },
-  methods:{
-    update(todo){
-      console.log("iii")
+  methods: {
+    update (todo) {
+      console.log('iii')
       console.log(todo)
-      this.showUpdate=true
-      this.selectedTodo=todo
-   },
-   alert(alert){
-     console.log("あらーとうけとれた")
+      this.showUpdate = true
+      this.selectedTodo = todo
+    },
+    alert (alert) {
+      console.log('あらーとうけとれた')
       this.alerts.push(alert)
       setTimeout(() => {
-      this.alerts.pop(alert)
+        this.alerts.pop(alert)
       }, alert.duration || 1500)
     }
   }

@@ -21,35 +21,34 @@
 </transition>
 </template>
 <script>
-  import { auth } from '../firebase'
-  import { database } from '../firebase'
-  export default {
-    props: ['todo'],
-    methods: {
-        getuid () {
-            var user = auth.currentUser
-            if(user != null){
-            console.log("getuid")
-            return auth.currentUser.uid
-            }
-        },
-      remove(){
-        var todosRef=database.ref(`users/${this.getuid()}/todos`)
-        todosRef.child(this.todo['.key']).remove()
-        this.$emit('close')
-        },
-      update () {
-          var todosRef=database.ref(`users/${this.getuid()}/todos`)
-          console.log(this.todo.title)
-          console.log(this.todo.content)
-          todosRef.child(this.todo['.key']).update({title:this.todo.title, content:this.todo.content,type:this.todo.type})
-          this.$emit('close')
-        },
-      dismissModal () {
-        this.$emit('close')
-        }
+import { auth, database } from '@/utils/firebase'
+export default {
+  props: ['todo'],
+  methods: {
+    getuid () {
+      var user = auth.currentUser
+      if (user != null) {
+        console.log('getuid')
+        return auth.currentUser.uid
+      }
+    },
+    remove () {
+      var todosRef = database.ref(`users/${this.getuid()}/todos`)
+      todosRef.child(this.todo['.key']).remove()
+      this.$emit('close')
+    },
+    update () {
+      var todosRef = database.ref(`users/${this.getuid()}/todos`)
+      console.log(this.todo.title)
+      console.log(this.todo.content)
+      todosRef.child(this.todo['.key']).update({title: this.todo.title, content: this.todo.content, type: this.todo.type})
+      this.$emit('close')
+    },
+    dismissModal () {
+      this.$emit('close')
     }
   }
+}
 </script>
 <style>
   .backdrop{

@@ -10,38 +10,38 @@
   </header>
 </template>
 <script>
-  import { auth } from '../firebase'
-  export default {
-    data () {
-      return {
-        email:'No User',
-        user: null,
-        searchQuery: ''
-      }
-    },
-    beforeCreate:function(){
-        auth.onAuthStateChanged((user) => {
-        if (user) {
-          this.user = user
-          this.email= user.email
-        }
-      })
-    },
-    methods: {
-        update(){
-            console.log("aaa")
-        },
-      signOut () {
-        auth.signOut()
-        this.email='No User'
-        this.user=null
-        this.$router.push({path:'/'})
-      }
-    },
-    updated:function(){
-        console.log("aa")
+import { auth } from '@/utils/firebase'
+export default {
+  data () {
+    return {
+      email: 'No User',
+      user: null,
+      searchQuery: ''
     }
+  },
+  beforeCreate: function () {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.user = user
+        this.email = user.email
+      }
+    })
+  },
+  methods: {
+    update () {
+      console.log('aaa')
+    },
+    signOut () {
+      auth.signOut()
+      this.email = 'No User'
+      this.user = null
+      this.$router.push({path: '/'})
+    }
+  },
+  updated: function () {
+    console.log('aa')
   }
+}
 </script>
 <style>
   header{

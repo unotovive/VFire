@@ -18,32 +18,31 @@
   </div>
 </template>
 <script>
-import { auth } from '../firebase'
-import { database } from '../firebase'
-import { hub } from '../main.js'
-  export default {
-    props: ['todo'],
-    methods:{
-      getuid () {
-            var user = auth.currentUser
-            if(user != null){
-            console.log("getuid")
-            return auth.currentUser.uid
-            }
-        },
-      upd(){
-        console.log(this.todo);
-        this.$emit('update',this.todo)
-      },
-      remove(){
-          var todosRef=database.ref(`users/${this.getuid()}/todos`)       
-          todosRef.child(this.todo['.key']).remove(e =>{
-          }).catch((error) =>{
-            console.log("FUCK");
-          });
-        },
+import { auth, database } from '@/utils/firebase'
+export default {
+  props: ['todo'],
+  methods: {
+    getuid () {
+      var user = auth.currentUser
+      if (user != null) {
+        console.log('getuid')
+        return auth.currentUser.uid
+      }
+    },
+    upd () {
+      console.log('hogehoge')
+      console.log(this.todo)
+      this.$emit('update', this.todo)
+    },
+    remove () {
+      var todosRef = database.ref(`users/${this.getuid()}/todos`)
+      todosRef.child(this.todo['.key']).remove(e => {
+      }).catch((error) => {
+        console.log('FUCK:' + error)
+      })
     }
   }
+}
 </script>
 <style>
 
@@ -64,7 +63,7 @@ import { hub } from '../main.js'
   .todo pre {
     font-size: 1.1em;
     margin-bottom: 10px;
-    white-space: pre-wrap; 
+    white-space: pre-wrap;
     word-wrap: break-word;
     font-family: inherit;
     color:#222831;

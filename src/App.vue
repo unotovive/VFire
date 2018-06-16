@@ -6,17 +6,17 @@
   </div>
 </template>
 <script>
-  import HeaderBar from './components/Header'
-  export default {
-    name:'app',
-    components: {
-      HeaderBar
-    },
-    data () {
-      return {
-      }
+import HeaderBar from './components/Header'
+export default {
+  name: 'app',
+  components: {
+    HeaderBar
+  },
+  data () {
+    return {
     }
   }
+}
 </script>
 <style>
 

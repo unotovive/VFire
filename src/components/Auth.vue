@@ -23,22 +23,22 @@
   </form>
 </template>
 <script>
-import { auth } from '../firebase'
-  export default {
-    data () {
-      return {
-        email: '',
-        password: '',
-        confirmPassword: '',
-        wantsToSignUp: false
-      }
-    },
-    methods: {
+import { auth } from '@/utils/firebase'
+export default {
+  data () {
+    return {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      wantsToSignUp: false
+    }
+  },
+  methods: {
     signUpWithPassword () {
       if (this.password === this.confirmPassword) {
         auth.createUserWithEmailAndPassword(
-            this.email,
-            this.password
+          this.email,
+          this.password
         )
           .then((userData) => this.signInWithPassword())
           .catch((error) => alert(error))
@@ -49,16 +49,14 @@ import { auth } from '../firebase'
         this.email,
         this.password
       ).then((userData) => {
-          
-          this.onSignedIn()
-          return userData
-        })
+        this.onSignedIn()
+        return userData
+      })
         .catch()
     },
     onSignedIn () {
-    console.log("signin")
-    this.$router.push({path:'/Main'})
-
+      console.log('signin')
+      this.$router.push({path: '/Main'})
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
 <div class="todos">
-    <div v-for="todo of todos" :key="todo['.key']" @click="update">
+    <div v-for="todo of todos" :key="todo['.key']" @click="update(todo)">
         <card
         :todo="todo"
         :update="update"
@@ -9,38 +9,37 @@
 </div>
 </template>
 <script>
-import { database } from '../firebase'
-import { auth } from '../firebase'
+import { auth, database } from '@/utils/firebase'
 import Card from './Card'
 let todosRef = database.ref('todos')
 export default {
-    components:{
-        Card
+  components: {
+    Card
+  },
+  beforeCreate: function () {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.user = user
+        this.$bindAsArray('todos', database.ref(`users/${user.uid}/todos`))
+      }
+    })
+  },
+  firebase: {
+    todos: todosRef
+  },
+  methods: {
+    test () {
+      console.log('aaaaaa')
     },
-    beforeCreate:function(){
-        auth.onAuthStateChanged((user) => {
-        if (user) {
-          this.user = user
-          this.$bindAsArray('todos', database.ref(`users/${user.uid}/todos`))
-        }
-      })
+    art (alert) {
+      console.log('indexで')
+      this.$emit('alert', alert)
     },
-    firebase:{
-        todos:todosRef
-    },
-    methods:{
-        test(){
-            console.log("aaaaaa")
-        },
-        art(alert){
-            console.log("indexで")
-            this.$emit('alert',alert)
-        },
-        update(todo){
-            console.log(todo)
-            this.$emit('update',todo)
-        }
+    update (todo) {
+      console.log(todo)
+      this.$emit('update', todo)
     }
+  }
 }
 </script>
 <style>

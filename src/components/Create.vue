@@ -8,44 +8,43 @@
             </select>
         </div>
         <input name="title" v-model="title" placeholder="Title"/>
-        
-        <textarea name="content" v-model="content" placeholder="Price" rows="2"></textarea> 
+
+        <textarea name="content" v-model="content" placeholder="Price" rows="2"></textarea>
         <button type="submit">+</button>
-    </form>  
+    </form>
 </template>
 <script>
-import { database } from '../firebase'
-import { auth } from '../firebase'
+import { auth, database } from '@/utils/firebase'
 export default {
-    data(){
-        return{
-            title:'',
-            content:'',
-            type:'1'
-        }
-    },
-    methods:{
-        getuid () {
-            var user = auth.currentUser
-            if(user != null){
-            console.log("getuid")
-            return auth.currentUser.uid
-            }
-        },
-        createTodo(){
-            if (this.title.trim() || this.content.trim()) {
-                var todosRef=database.ref(`users/${this.getuid()}/todos`)
-                todosRef.push({title: this.title, content: this.content,type:this.type}, (err) => {
-                    if (err) {
-                        throw err
-                    }
-                    this.title = ''
-                    this.content = ''
-                    this.type=1
-                })
-            }
-        }
+  data () {
+    return {
+      title: '',
+      content: '',
+      type: '1'
     }
+  },
+  methods: {
+    getuid () {
+      var user = auth.currentUser
+      if (user != null) {
+        console.log('getuid')
+        return auth.currentUser.uid
+      }
+    },
+    createTodo () {
+      if (this.title.trim() || this.content.trim()) {
+        var todosRef = database.ref(`users/${this.getuid()}/todos`)
+        todosRef.push({title: this.title, content: this.content, type: this.type}, (err) => {
+          if (err) {
+            throw err
+          }
+          this.title = ''
+          this.content = ''
+          this.type = 1
+        })
+      }
+    }
+  }
 }
 </script>
 
